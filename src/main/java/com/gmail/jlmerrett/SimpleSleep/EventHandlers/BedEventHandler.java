@@ -1,6 +1,7 @@
 package com.gmail.jlmerrett.SimpleSleep.EventHandlers;
 
 import com.gmail.jlmerrett.SimpleSleep.Messenger.Messenger;
+import com.mojang.brigadier.Message;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,13 +19,15 @@ public class BedEventHandler implements Listener {
     @EventHandler
     public void onPlayerEnterBed(PlayerBedEnterEvent playerBedEnterEvent){
         Player player = playerBedEnterEvent.getPlayer();
-        messenger.sendChatMessage(player.getDisplayName() + " has entered bed");
+        String message = messenger.getMessageCreator().constructMessage(player, "bed_entered_message");
+        messenger.sendChatMessage(message);
     }
 
     @EventHandler
     public void onPlayerLeaveBed(PlayerBedLeaveEvent playerBedLeaveEvent){
         Player player = playerBedLeaveEvent.getPlayer();
-        messenger.sendChatMessage(player.getDisplayName() + " has left bed");
+        String message = messenger.getMessageCreator().constructMessage(player, "bed_left_message");
+        messenger.sendChatMessage(message);
     }
 
 }
