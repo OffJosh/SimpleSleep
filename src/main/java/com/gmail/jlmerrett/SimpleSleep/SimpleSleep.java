@@ -1,17 +1,33 @@
 package com.gmail.jlmerrett.SimpleSleep;
 
+import com.gmail.jlmerrett.SimpleSleep.EventHandlers.BedEventHandler;
+import com.gmail.jlmerrett.SimpleSleep.Messenger.Messenger;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class SimpleSleep extends JavaPlugin {
 
+    BedEventHandler bedEventHandler;
+    Messenger messenger;
+
     @Override
     public void onEnable() {
-        this.getCommand("TestChatMessage").setExecutor(new CommandTestChatMessage());
+       initPlugin();
     }
 
     @Override
     public void onDisable() {
 
+    }
+
+    private void initPlugin(){
+        messenger = new Messenger();
+        bedEventHandler = new BedEventHandler(messenger);
+        getServer().getPluginManager().registerEvents(bedEventHandler, this);
+        this.getCommand("TestChatMessage").setExecutor(new CommandTestChatMessage());
+    }
+
+    public BedEventHandler bedEventHandler(){
+        return bedEventHandler;
     }
 
 }
