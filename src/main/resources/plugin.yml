@@ -2,3 +2,7 @@
   main: com.gmail.jlmerrett.SimpleSleep.SimpleSleep
   version: 0.0.1
   author: OffJosh
+  commands:
+    TestChatMessage:
+      description: test
+      usage: /<command>
