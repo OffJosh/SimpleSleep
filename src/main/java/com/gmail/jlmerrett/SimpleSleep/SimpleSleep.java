@@ -23,7 +23,6 @@ public class SimpleSleep extends JavaPlugin {
         messenger = new Messenger();
         bedEventHandler = new BedEventHandler(messenger);
         getServer().getPluginManager().registerEvents(bedEventHandler, this);
-        this.getCommand("TestChatMessage").setExecutor(new CommandTestChatMessage());
     }
 
     public BedEventHandler bedEventHandler(){
