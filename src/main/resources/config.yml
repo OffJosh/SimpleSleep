@@ -1,0 +1,13 @@
+#---Configuration Options---
+#You can either use a percentage of players online, or an absolute number.
+#sleeping_type can be set to either PERCENTAGE or ABSOLUTE
+sleeping_type: "PERCENTAGE"
+percentage_amount: 10
+absolute_amount: 1
+
+#---Chat Messages---
+#'[player]' will be replaced by the player's name.
+#For example:
+#If player OffJosh_ gets into a bed the bed_entered_message will go from '&3[player] has entered bed.' and become '&3OffJosh_ has entered bed.'
+bed_entered_message: "&3[player] has entered bed."
+bed_left_message: "&3[player] has left bed."
