@@ -13,7 +13,7 @@ Please let me know if you have any issues.
     percentage_amount: 10
     absolute_amount: 1
     
-    #World name for the main world. This will generally just be "world"`
+    #World name for the main world. This will generally just be "world"
     world_name: "world"
     
     #---Chat Messages---
