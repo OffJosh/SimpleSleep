@@ -1,5 +1,6 @@
 package com.gmail.jlmerrett.SimpleSleep.Messenger;
 
+import com.gmail.jlmerrett.SimpleSleep.SimpleSleep;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -7,8 +8,8 @@ public class MessageCreator {
 
     FileConfiguration configFile;
 
-    public MessageCreator(FileConfiguration configFile){
-        this.configFile = configFile;
+    public MessageCreator(){
+        this.configFile = SimpleSleep.getConfigFile();
     }
 
     public String constructMessage(Player player, String messageKey){

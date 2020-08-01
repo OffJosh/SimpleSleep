@@ -1,8 +1,9 @@
 package com.gmail.jlmerrett.SimpleSleep.EventHandlers;
 
-import com.gmail.jlmerrett.SimpleSleep.Calculators.Calculator;
+import com.gmail.jlmerrett.SimpleSleep.Calculators.SleepCalculator;
 import com.gmail.jlmerrett.SimpleSleep.Messenger.Messenger;
-import org.bukkit.Bukkit;
+import com.gmail.jlmerrett.SimpleSleep.NightSkipper.NightSkipper;
+import com.gmail.jlmerrett.SimpleSleep.SimpleSleep;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,30 +13,41 @@ import org.bukkit.event.player.PlayerBedLeaveEvent;
 public class BedEventHandler implements Listener {
 
     Messenger messenger;
-    Calculator calculator;
+    SleepCalculator sleepCalculator;
+    NightSkipper nightSkipper;
 
-    public BedEventHandler(Messenger messenger, Calculator calculator){
-        this.messenger = messenger;
-        this.calculator = calculator;
+    public BedEventHandler(){
+        this.messenger = SimpleSleep.getMessenger();
+        this.sleepCalculator = SimpleSleep.getSleepCalculator();
+        this.nightSkipper = SimpleSleep.getNightSkipper();
     }
 
     @EventHandler
     public void onPlayerEnterBed(PlayerBedEnterEvent playerBedEnterEvent){
-        Player player = playerBedEnterEvent.getPlayer();
-        String message = messenger.getMessageCreator().constructMessage(player, "bed_entered_message");
-        messenger.sendChatMessage(message);
+        if(playerBedEnterEvent.getBedEnterResult().equals(PlayerBedEnterEvent.BedEnterResult.OK)) {
 
-        int needed = calculator.calculatePlayersNeeded();
+            nightSkipper.setNightSkipped(false);
+            sleepCalculator.addSleepingPlayer();
+            Player player = playerBedEnterEvent.getPlayer();
+            String message = messenger.getMessageCreator().constructMessage(player, "bed_entered_message");
+            messenger.sendChatMessage(message);
+            messenger.sendPlayersNeededChatMessage();
+            nightSkipper.tryNightSkip();
 
-        messenger.sendChatMessage(Integer.toString(needed));
+        }
 
     }
 
     @EventHandler
     public void onPlayerLeaveBed(PlayerBedLeaveEvent playerBedLeaveEvent){
-        Player player = playerBedLeaveEvent.getPlayer();
-        String message = messenger.getMessageCreator().constructMessage(player, "bed_left_message");
-        messenger.sendChatMessage(message);
+        if (!nightSkipper.getNightSkipped()) {
+            Player player = playerBedLeaveEvent.getPlayer();
+            sleepCalculator.removeSleepingPlayer();
+            String message = messenger.getMessageCreator().constructMessage(player, "bed_left_message");
+            messenger.sendChatMessage(message);
+            messenger.sendPlayersNeededChatMessage();
+        }
+
     }
 
 }
