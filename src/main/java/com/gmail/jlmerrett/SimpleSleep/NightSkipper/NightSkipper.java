@@ -4,6 +4,7 @@ import com.gmail.jlmerrett.SimpleSleep.Calculators.SleepCalculator;
 import com.gmail.jlmerrett.SimpleSleep.Messenger.Messenger;
 import com.gmail.jlmerrett.SimpleSleep.SimpleSleep;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 
 public class NightSkipper {
 
@@ -19,8 +20,15 @@ public class NightSkipper {
     public void tryNightSkip(){
         Bukkit.getScheduler().runTaskLater(SimpleSleep.getPlugin(), () -> {
                 if (sleepCalculator.getPlayersSleeping() >= sleepCalculator.getPlayersNeeded()) {
-                    Bukkit.getWorld("world").setTime(1000);
                     messenger.sendChatMessage("Skipping the Night");
+                    World world = Bukkit.getWorld("world");
+                    world.setTime(1000);
+                    if(world.isThundering()){
+                        world.setThundering(false);
+                    }
+                    if(world.hasStorm()){
+                        world.setStorm(false);
+                    }
                     setNightSkipped(true);
                 }
             }, 40);
