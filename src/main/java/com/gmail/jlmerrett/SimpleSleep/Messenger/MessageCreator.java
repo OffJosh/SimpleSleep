@@ -12,6 +12,14 @@ public class MessageCreator {
         this.configFile = SimpleSleep.getConfigFile();
     }
 
+    public String getMessageByKey(String messageKey){
+        String message = configFile.getString(messageKey);
+
+        message = replaceColourChar(message);
+
+        return message;
+    }
+
     public String constructMessage(Player player, String messageKey){
         String message = configFile.getString(messageKey);
 
@@ -19,6 +27,26 @@ public class MessageCreator {
         message = replaceColourChar(message);
 
         return message;
+    }
+
+    public String constructMessage(int sleeping, int needed, String messageKey){
+        String message = configFile.getString(messageKey);
+
+        message = replaceSleepingNeededAmounts(message, sleeping, needed);
+        message = replaceColourChar(message);
+
+        return message;
+    }
+
+    private String replaceSleepingNeededAmounts(String message, int sleeping, int needed){
+        String newMessage = message;
+        if (newMessage.contains("<sleepingPlayers>")){
+            newMessage = newMessage.replace("<sleepingPlayers>", Integer.toString(sleeping));
+        }
+        if (newMessage.contains("<neededPlayers>")){
+            newMessage = newMessage.replace("<neededPlayers>", Integer.toString(needed));
+        }
+        return newMessage;
     }
 
     private String replacePlayerNames(String message, Player player){

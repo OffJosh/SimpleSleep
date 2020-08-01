@@ -26,7 +26,11 @@ public class Messenger {
 
         int playersSleeping = sleepCalculator.getPlayersSleeping();
         int playersNeeded = sleepCalculator.getPlayersNeeded();
-        sendChatMessage(String.format("%s/%s players needed are sleeping.", playersSleeping, playersNeeded));
+        sendChatMessage(messageCreator.constructMessage(playersSleeping, playersNeeded, "sleeping_needed_message"));
 
+    }
+
+    public void sendNightSkipMessage(){
+        sendChatMessage(messageCreator.getMessageByKey("skipped_night_message"));
     }
 }

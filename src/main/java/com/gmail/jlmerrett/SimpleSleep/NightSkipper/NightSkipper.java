@@ -20,8 +20,8 @@ public class NightSkipper {
     public void tryNightSkip(){
         Bukkit.getScheduler().runTaskLater(SimpleSleep.getPlugin(), () -> {
                 if (sleepCalculator.getPlayersSleeping() >= sleepCalculator.getPlayersNeeded()) {
-                    messenger.sendChatMessage("Skipping the Night");
-                    World world = Bukkit.getWorld("world");
+                    messenger.sendNightSkipMessage();
+                    World world = Bukkit.getWorld(SimpleSleep.getMainWorldName());
                     world.setTime(1000);
                     if(world.isThundering()){
                         world.setThundering(false);

@@ -39,7 +39,7 @@ public class SleepCalculator {
 
     private void calculatePlayersNeeded(){
 
-        int playerCount = Bukkit.getServer().getWorld("world").getPlayers().size();
+        int playerCount = Bukkit.getServer().getWorld(SimpleSleep.getMainWorldName()).getPlayers().size();
         if(sleeping_type.equals("PERCENTAGE")){
             playersNeeded = Math.max(playerCount * percentage_amount / 100, 1);
         }

@@ -18,6 +18,7 @@ public class SimpleSleep extends JavaPlugin {
     static FileConfiguration configFile;
     static NightSkipper nightSkipper;
     static Plugin plugin;
+    static String mainWorldName;
 
     @Override
     public void onEnable() {
@@ -39,6 +40,7 @@ public class SimpleSleep extends JavaPlugin {
         nightSkipper = new NightSkipper();
         bedEventHandler = new BedEventHandler();
         getServer().getPluginManager().registerEvents(bedEventHandler, plugin);
+        mainWorldName = configFile.getString("world_name");
     }
 
     public static BedEventHandler getBedEventHandler(){
@@ -67,5 +69,9 @@ public class SimpleSleep extends JavaPlugin {
 
     public static Plugin getPlugin(){
         return plugin;
+    }
+
+    public static String getMainWorldName(){
+        return mainWorldName;
     }
 }
