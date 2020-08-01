@@ -40,9 +40,9 @@ public class BedEventHandler implements Listener {
 
     @EventHandler
     public void onPlayerLeaveBed(PlayerBedLeaveEvent playerBedLeaveEvent){
+        sleepCalculator.removeSleepingPlayer();
         if (!nightSkipper.getNightSkipped()) {
             Player player = playerBedLeaveEvent.getPlayer();
-            sleepCalculator.removeSleepingPlayer();
             String message = messenger.getMessageCreator().constructMessage(player, "bed_left_message");
             messenger.sendChatMessage(message);
             messenger.sendPlayersNeededChatMessage();
