@@ -1,4 +1,4 @@
-# SimpleSleep
+# SimpleSleep for Minecraft
 ## Intro
 Exactly what it says on the tin. A simple sleep plugin without unnecessary/unwanted/unused features.<br>
 All configurable from a single config file.<br>
